@@ -2,33 +2,32 @@ import throttle from "lodash.throttle"
 
 const feedbackEl = document.querySelector('.feedback-form');
 
-const inputEmail = form.elements.email;
-const inputMessage = form.elements.message;
-const buttonEl = document.querySelector('button')
+const inputEmail = feedbackEl.elements.email;
+const inputMessage = feedbackEl.elements.message;
+const buttonEl = document.querySelector('button');
 
-const saveFeedback = JSON.parse(localStorage.getItem("feedback-form-state"));
- if(feedbackElsaveFeedback){
-    inputEmail.value = saveFeedback.email;
-    inputMessage.value = saveFeedback.message;
-    buttonEl.disabled = !(inputEmail.value && inputMessage.value);
- }
+const saveFeedback = JSON.parse(localStorage.getItem('feedback-form-state'));
+if (saveFeedback) {
+  inputEmail.value = saveFeedback.email;
+  inputMessage.value = saveFeedback.message;
+  buttonEl.disabled = !(inputEmail.value && inputMessage.value);
+}
 
- form.addEventListener('input', throttle(() => {
-    localStorage.setItem("feedback-form-state", JSON.stringify({
-        email:  inputEmail.value,
-        message: inputMessage.value,
-    }))
+feedbackEl.addEventListener('input', throttle(() => {
+  localStorage.setItem('feedback-form-state', JSON.stringify({
+    email: inputEmail.value,
+    message: inputMessage.value,
+  }));
 
-    buttonEl.disabled = !(inputEmail.value && inputMessage.value);
+  buttonEl.disabled = !(inputEmail.value && inputMessage.value);
 }, 500));
 
-form.addEventListener('submit', ev => {
-    ev.preventDefeult();
+feedbackEl.addEventListener('submit', ev => {
+  ev.preventDefault();
 
-    console.log({email:  inputEmail.value,
-    message: inputMessage.value,})
-    
-    form.reset();
-    localStorage.removeItem("feedback-form-state");
-    buttonEl.disabled = true;
-})
+  console.log({ email: inputEmail.value, message: inputMessage.value });
+
+  feedbackEl.reset();
+  localStorage.removeItem('feedback-form-state');
+  buttonEl.disabled = true;
+});
