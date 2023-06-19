@@ -8,14 +8,14 @@ const video = document.querySelector('#vimeo-player');
 const player = new Player(video);
 
 const throttleTime = throttle(second => {
-    localStorage.setItem(videoplayer-current-time, second)
+    localStorage.setItem('videoplayer-current-time', second);
 }, 1000);
 
 player.on('timeupdate ', function(data) {
     throttleTime(data.second)
 });
 
-const timeSave = localStorage.getItem("videoplayer-current-time");
+const timeSave = localStorage.getItem('videoplayer-current-time');
 
     if(timeSave){
         player.setCurrentTime(timeSave)
