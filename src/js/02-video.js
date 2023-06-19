@@ -7,12 +7,12 @@ const video = document.querySelector('#vimeo-player');
 // инициализирую Video Player с video
 const player = new Player(video);
 
-const throttleTime = throttle(second => {
-    localStorage.setItem('videoplayer-current-time', second);
+const throttleTime = throttle(seconds => {
+    localStorage.setItem('videoplayer-current-time', seconds);
 }, 1000);
 
-player.on('timeupdate ', function(data) {
-    throttleTime(data.second)
+player.on('timeupdate', function(data) {
+    throttleTime(data.seconds)
 });
 
 const timeSave = localStorage.getItem('videoplayer-current-time');
